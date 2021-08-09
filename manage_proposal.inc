@@ -280,22 +280,27 @@ function r_case_study_proposal_approval_form($form, &$form_state)
     $form['country'] = array(
         '#type' => 'item',
         '#markup' => $proposal_data->country,
-        '#title' => t('Country'),
+        '#title' => t('Country')
     );
     $form['all_state'] = array(
         '#type' => 'item',
         '#markup' => $proposal_data->state,
-        '#title' => t('State'),
+        '#title' => t('State')
     );
     $form['city'] = array(
         '#type' => 'item',
         '#markup' => $proposal_data->city,
-        '#title' => t('City'),
+        '#title' => t('City')
+    );
+    $form['district'] = array(
+        '#type' => 'item',
+        '#markup' => $proposal_data->district,
+        '#title' => t('District')
     );
     $form['pincode'] = array(
         '#type' => 'item',
         '#markup' => $proposal_data->pincode,
-        '#title' => t('Pincode/Postal code'),
+        '#title' => t('Pincode/Postal code')
     );
     $form['r_version'] = array(
         '#type' => 'item',
@@ -571,22 +576,27 @@ function r_case_study_proposal_status_form($form, &$form_state)
     $form['country'] = array(
         '#type' => 'item',
         '#markup' => $proposal_data->country,
-        '#title' => t('Country'),
+        '#title' => t('Country')
     );
     $form['all_state'] = array(
         '#type' => 'item',
         '#markup' => $proposal_data->state,
-        '#title' => t('State'),
+        '#title' => t('State')
     );
     $form['city'] = array(
         '#type' => 'item',
         '#markup' => $proposal_data->city,
-        '#title' => t('City'),
+        '#title' => t('City')
+    );
+    $form['district'] = array(
+        '#type' => 'item',
+        '#markup' => $proposal_data->district,
+        '#title' => t('District')
     );
     $form['pincode'] = array(
         '#type' => 'item',
         '#markup' => $proposal_data->pincode,
-        '#title' => t('Pincode/Postal code'),
+        '#title' => t('Pincode/Postal code')
     );
     $form['r_version'] = array(
         '#type' => 'item',
@@ -870,98 +880,115 @@ function r_case_study_proposal_edit_form($form, &$form_state)
         '#title' => t('Country'),
         '#options' => array(
             'India' => 'India',
-            'Others' => 'Others',
+            'Others' => 'Others'
         ),
-        '#default_value' => $proposal_data->country,
-        '#required' => true,
-        '#tree' => true,
-        '#validated' => true,
+        '#required' => TRUE,
+        '#tree' => TRUE,
+        '#validated' => TRUE,
+        '#default_value' => $proposal_data->country
     );
     $form['other_country'] = array(
         '#type' => 'textfield',
         '#title' => t('Other than India'),
         '#size' => 100,
-        '#default_value' => $proposal_data->country,
         '#attributes' => array(
-            'placeholder' => t('Enter your country name'),
+            'placeholder' => t('Enter your country name')
         ),
+        '#default_value' => $proposal_data->country,
         '#states' => array(
             'visible' => array(
                 ':input[name="country"]' => array(
-                    'value' => 'Others',
-                ),
-            ),
-        ),
+                    'value' => 'Others'
+                )
+            )
+        )
     );
     $form['other_state'] = array(
         '#type' => 'textfield',
         '#title' => t('State other than India'),
         '#size' => 100,
         '#attributes' => array(
-            'placeholder' => t('Enter your state/region name'),
+            'placeholder' => t('Enter your state/region name')
         ),
         '#default_value' => $proposal_data->state,
         '#states' => array(
             'visible' => array(
                 ':input[name="country"]' => array(
-                    'value' => 'Others',
-                ),
-            ),
-        ),
+                    'value' => 'Others'
+                )
+            )
+        )
     );
     $form['other_city'] = array(
         '#type' => 'textfield',
         '#title' => t('City other than India'),
         '#size' => 100,
         '#attributes' => array(
-            'placeholder' => t('Enter your city name'),
+            'placeholder' => t('Enter your city name')
         ),
         '#default_value' => $proposal_data->city,
         '#states' => array(
             'visible' => array(
                 ':input[name="country"]' => array(
-                    'value' => 'Others',
-                ),
-            ),
-        ),
+                    'value' => 'Others'
+                )
+            )
+        )
     );
     $form['all_state'] = array(
         '#type' => 'select',
         '#title' => t('State'),
-        '#options' => _r_case_study_list_of_states(),
+        '#options' => _case_study_list_of_states(),
+        '#validated' => TRUE,
         '#default_value' => $proposal_data->state,
-        '#validated' => true,
         '#states' => array(
             'visible' => array(
                 ':input[name="country"]' => array(
-                    'value' => 'India',
-                ),
-            ),
-        ),
+                    'value' => 'India'
+                )
+            )
+        )
+    );
+    $form['district'] = array(
+        '#type' => 'select',
+        '#title' => t('District'),
+        '#options' => _case_study_list_of_district(),
+        '#validated' => TRUE,
+        '#default_value' => $proposal_data->district,
+        '#states' => array(
+            'visible' => array(
+                ':input[name="country"]' => array(
+                    'value' => 'India'
+                )
+            )
+        )
     );
     $form['city'] = array(
         '#type' => 'select',
         '#title' => t('City'),
-        '#options' => _r_case_study_list_of_cities(),
+        '#options' => _case_study_list_of_cities(),
+        '#validated' => TRUE,
         '#default_value' => $proposal_data->city,
         '#states' => array(
             'visible' => array(
                 ':input[name="country"]' => array(
-                    'value' => 'India',
-                ),
-            ),
-        ),
+                    'value' => 'India'
+                )
+            )
+        )
     );
+    
     $form['pincode'] = array(
         '#type' => 'textfield',
         '#title' => t('Pincode'),
         '#size' => 30,
         '#maxlength' => 6,
         '#default_value' => $proposal_data->pincode,
+        '#required' => False,
         '#attributes' => array(
-            'placeholder' => 'Insert pincode of your city/ village....',
-        ),
-    );
+            'placeholder' => 'Enter pincode....'
+        )
+    );  
     $form['r_version'] = array(
         '#type' => 'select',
         '#title' => t('Version used'),
@@ -1161,6 +1188,7 @@ function r_case_study_proposal_edit_form_submit($form, &$form_state)
 				faculty_department = :faculty_department,
 				faculty_email = :faculty_email,
 				city=:city,
+                district=:district,
 				pincode=:pincode,
 				state=:state,
 				project_title=:project_title,
@@ -1179,6 +1207,7 @@ function r_case_study_proposal_edit_form_submit($form, &$form_state)
         ":faculty_department" => $v['faculty_department'],
         ":faculty_email" => $v['faculty_email'],
         ':city' => $v['city'],
+        ':district' => $v['district'],
         ':pincode' => $v['pincode'],
         ':state' => $v['all_state'],
         ':project_title' => $project_title,
